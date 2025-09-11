@@ -10,8 +10,9 @@ import Footer from './components/Footer'
 import Layout from './pages/owner/Layout'
 import Dashboard from './pages/owner/Dashboard'
 import AddCar from './pages/owner/AddCar'
-import ManageCars from './pages/owner/ManageCars'
+// import ManageCars from './pages/owner/'
 import ManageBookings from './pages/owner/ManageBookings'
+import ManageCars from './pages/owner/ManageCars'
 
 const App = () => {
   const [showLogin, setShowLogin] = React.useState(false)
@@ -31,7 +32,9 @@ const App = () => {
         <Route path='/owner' element={<Layout />}>
         <Route index element={<Dashboard />}/>
         <Route path='add-car' element={<AddCar />}/>
-        <Route path='manage-car' element={<ManageCars/>}/>
+        <Route path='manage-cars' element={<ManageCars />}/>
+        
+        {/* <Route path='manage-car' element={<ManageCars/>}/> */}
         <Route path='manage-bookings' element={<ManageBookings />}/>
 
         </Route>
