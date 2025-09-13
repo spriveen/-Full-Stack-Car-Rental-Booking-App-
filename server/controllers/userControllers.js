@@ -40,10 +40,10 @@ export const loginUser = async (req,res)=>{
     if(!user){
         return res.json({sucess:false, message:"User not found"})
     }
-    const isatch = await bcrypt.compare(password, user.password)
-    if(!isMatch){
-         return res.json({sucess:false, message:"Invalid Credentials"}) 
-    }
+    const isMatch = await bcrypt.compare(password, user.password); // fixed spelling
+if (!isMatch) {
+  return res.json({ success: false, message: "Invalid Credentials" });
+}
     const token = generateToken(user._id.toString())
     res.json ({sucess:true, token})
    } catch (error) {
