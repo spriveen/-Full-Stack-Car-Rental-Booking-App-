@@ -51,3 +51,14 @@ if (!isMatch) {
     res.json ({sucess:false, message:error.message})
    }
 }
+
+// Get User data usuing Token (JWT)
+export const getUserData = async (req,res) =>{
+  try {
+    const {user} = req;
+    res.json({success:true, user})
+  } catch (error) {
+     console.log(error.message);
+    res.json ({sucess:false, message:error.message})
+  }
+}
