@@ -12,3 +12,16 @@ export const changeRoleToOwner = async ()=>{
         
     }
 }
+
+// API TO LIST CAR
+
+export const addCar = async ()=>{
+    try {
+        const {_id} = req.user;
+        let car = JSON.parse(req.body.carData);
+        const imageFile = req.file;
+    } catch (error) {
+        console.log(error.message)
+         res.json({sucess: false, message: error.message})
+    }
+}
