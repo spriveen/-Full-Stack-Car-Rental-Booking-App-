@@ -32,7 +32,7 @@ export const addCar = async (req, res) => {
     });
 
     // Optimize through imagekit URL transformation
-    const imageURL = imagekit.url({
+    var OptimizedImageUrl  = imagekit.url({
       path: response.filePath,
       transformation: [
         { width: "1280" },   // width resizing
@@ -141,5 +141,44 @@ export const  getDashboardData = async (req, res) =>{
         console.error(error.message);
      res.json({ success: false, message: error.message })
        }
+}
+
+// API TO IMAGE USER IMAGE
+
+export const updateUserImage = async ()=>{
+  try {
+    const {_id} = req.user;
+   
+    // const imageFile = req.file;
+
+    // Upload image to imagekit
+    const fileBuffer = fs.readFileSync(imageFile.path);
+    const response = await imagekit.upload({
+      file: fileBuffer,
+      fileName: imageFile.originalname,
+      folder: "/users",
+    });
+
+    // Optimize through imagekit URL transformation
+    var OptimizedImageUrl = imagekit.url({
+      path: response.filePath,
+      transformation: [
+        { width: "400" },   // width resizing
+        { quality: "auto" }, // auto compression
+        { format: "webp" }   // modern format
+      ],
+    });
+
+    const image = OptimizedImageUrl;
+
+    await User.findByIdAndUpdate(_id,{image});
+    res.json({sucess:true, message: "Image Update"})
+
+
+
+  } catch (error) {
+    console.error(error.message);
+     res.json({ success: false, message: error.message })
+  }
 }
 
