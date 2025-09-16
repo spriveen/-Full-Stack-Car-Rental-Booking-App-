@@ -29,7 +29,7 @@ const CarCard = ({car}) => {
         <div className='absolutr bottom-4 right-4 bg-black/80 backdrop-blur-sm
         text-white px-3 py-2 rounded-lg'>
          <span className='font-semibold'>{currency}{car.pricePerDay}</span>
-         <span lassName="text-sm text-white/80"> / day</span>
+         <span className="text-sm text-white/80"> / day</span>
         </div>
       </div>
       

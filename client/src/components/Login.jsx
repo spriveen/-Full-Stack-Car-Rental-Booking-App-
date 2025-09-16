@@ -3,15 +3,38 @@ import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
 
 const Login = () => {
-  const { showLogin, setShowLogin, setToken, axios,navigate } = useAppContext();
+  const { showLogin, setShowLogin, setToken, axios, navigate } = useAppContext();
 
-  const [state, setState] = React.useState("login"); 
+  const [state, setState] = React.useState("login");
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  
+
 
   if (!showLogin) return null; // only render if modal is open
+
+  // const onSubmitHandler = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const { data } = await axios.post(`/api/user/${state}`, {
+  //       ...(state === "register" && { name }),
+  //       email,
+  //       password,
+  //     });
+
+  //     if (data.success) {
+  //       navigate ('/')
+  //       setToken(data.token);
+  //       localStorage.setItem("token", data.token);
+  //       setShowLogin(false);
+  //       toast.success(data.message || "Success!");
+  //     } else {
+  //       toast.error(data.message || "Something went wrong");
+  //     }
+  //   } catch (error) {
+  //     toast.error(error.response?.data?.message || error.message);
+  //   }
+  // };
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -22,16 +45,20 @@ const Login = () => {
         password,
       });
 
-      if (data.success) {
-        navigate ('/')
+      console.log('Login response:', data);
+
+      // Check for either success or sucess (to handle the typo)
+      if (data.success || data.sucess) {
+        navigate('/');
         setToken(data.token);
         localStorage.setItem("token", data.token);
         setShowLogin(false);
-        toast.success(data.message || "Success!");
+        toast.success(data.message || "Successfully logged in!");
       } else {
         toast.error(data.message || "Something went wrong");
       }
     } catch (error) {
+      console.error('Login error:', error);
       toast.error(error.response?.data?.message || error.message);
     }
   };
