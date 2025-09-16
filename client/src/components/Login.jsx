@@ -49,7 +49,7 @@ const Login = () => {
 
       // Check for either success or sucess (to handle the typo)
       if (data.success || data.sucess) {
-        navigate('/');
+        navigate('/owner');
         setToken(data.token);
         localStorage.setItem("token", data.token);
         setShowLogin(false);

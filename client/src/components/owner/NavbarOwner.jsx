@@ -1,10 +1,10 @@
 import React from 'react'
-import { assets, dummyUserData } from '../../assets/assets'
+import { assets } from '../../assets/assets'
 import { Link } from 'react-router-dom';
+import { useAppContext } from '../../context/AppContext';
 
 const NavbarOwner = () => {
-
-    const user  = dummyUserData;
+    const { user, logout } = useAppContext();
     
     return (
     <div className='flex items-center justify-between px-6
@@ -14,7 +14,13 @@ const NavbarOwner = () => {
       <Link to='/'>
        <img src={assets.logo} alt='' className='h-7' />
       </Link>
-      <p>Welcome, {user.name || 'Owner'}</p>
+      <p>Welcome, {user?.name || 'Owner'}</p>
+      <button
+        onClick={logout}
+        className="px-4 py-2 bg-primary text-white rounded hover:bg-primary-dull transition-all"
+      >
+        Logout
+      </button>
     </div>
   )
 }

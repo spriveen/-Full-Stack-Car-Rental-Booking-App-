@@ -23,13 +23,17 @@ export const AppProvider = ({ children }) => {
   const fetchUser = async () => {
     try {
       const { data } = await axios.get("/api/user/data");
-      if (data.success) {
+      if (data.success || data.sucess) { // Handle both spellings
         setUser(data.user);
         setIsOwner(data.user.role === "owner");
       } else {
-        navigate("/");
+        setUser(null);
+        setIsOwner(false);
       }
     } catch (error) {
+      console.error("Error fetching user:", error);
+      setUser(null);
+      setIsOwner(false);
       toast.error(error.response?.data?.message || error.message);
     }
   };
@@ -51,6 +55,7 @@ export const AppProvider = ({ children }) => {
     setUser(null);
     setIsOwner(false);
     delete axios.defaults.headers.common["Authorization"];
+    navigate('/');
     toast.success("You have been logged out");
   };
 

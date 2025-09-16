@@ -14,14 +14,16 @@ const Navbar = () => {
   const changeRole = async () => {
     try {
       const { data } = await axios.post('/api/owner/change-role')
-      if (data.sucess) {
+      if (data.success || data.sucess) {
         setIsOwner(true)
-        toast.success(data.message)
+        navigate('/owner')
+        toast.success(data.message || "Role changed to owner")
       } else {
-        toast.error(data.message)
+        toast.error(data.message || "Failed to change role")
       }
     } catch (error) {
-      toast.error(error.message)
+      console.error('Change role error:', error);
+      toast.error(error.response?.data?.message || error.message)
     }
   }
 
@@ -59,13 +61,19 @@ const Navbar = () => {
           <img src={assets.search_icon} alt='search'/>
         </div>
 
-        <div className='flex max-sm:flex-col items-start sm:items-center gap-6'>
+        {/* <div className='flex max-sm:flex-col items-start sm:items-center gap-6'>
           <button
             onClick={() => isOwner ? navigate('/owner') : changeRole()}
             className='cursor-pointer'
           >
-            {isOwner ? 'Dashboard' : 'List Cars'}
-          </button>
+            {isOwner ? 'Dashboard' : 'List cars'}
+          </button> */}
+          <div className='flex max-sm:flex-col items-start sm:items-center gap-6'>
+           <button onClick={()=>navigate('/owner')}
+           className='cursor-pinter'>{isOwner ?'Dashboard' : 'List cars'}
+
+           </button>
+          
 
           <button
             onClick={() => { user ? logout() : setShowLogin(true) }}
